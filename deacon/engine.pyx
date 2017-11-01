@@ -65,7 +65,7 @@ cdef class AmericanBinomialEngine(BinomialEngine):
                 call_t[j] = dpu * call_t[j] + dpd * call_t[j+1]
 			    spot_t[j] = spot_t[j] / u
 		        call_t[j] = np.maximum(call_t[j], option.payoff(spot_t[j]))
-            return call_t[0]
+        return call_t[0]
  
 
 
