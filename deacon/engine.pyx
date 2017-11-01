@@ -41,21 +41,21 @@ cdef class EuropeanBinomialEngine(BinomialEngine):
         return df * payoff_t
 
 
-#cdef class AmericanBinomialEngine(BinomialEngine):
-#  """A concrete class for the American Binomial Option Pricing model."""
-#  cdef double calculate(self, Option option, MarketData data):
-#      cdef double dt = option.expiry / self._nsteps
-#      cdef double u = np.exp((data.rate - data.div) * dt + data.vol * np.sqrt(dt))
-#      cdef double d = np.exp((data.rate - data.div) * dt - data.vol * np.sqrt(dt))
-#      cdef double pu = (np.exp((data.rate - data.div) * dt) - d)/ (u - d)
-#      cdef double pd = 1.0 - pu
-#      cdef double disc = np.exp(-data.rate * dt)
-#      cdef double dpu = disc * pu
-#      cdef double dpd = disc * pd
-#      cdef long numNodes = self._nsteps + 1
-#
-#      cdef double[:] spot_t = np.empty(numNodes, dtype=np.float64)
-#      cdef double[:] call_t = np.empty(numNodes, dtype=np.float64)
+cdef class AmericanBinomialEngine(BinomialEngine):
+  """A concrete class for the American Binomial Option Pricing model."""
+  cdef double calculate(self, Option option, MarketData data):
+      cdef double dt = option.expiry / self._nsteps
+      cdef double u = np.exp((data.rate - data.div) * dt + data.vol * np.sqrt(dt))
+      cdef double d = np.exp((data.rate - data.div) * dt - data.vol * np.sqrt(dt))
+      cdef double pu = (np.exp((data.rate - data.div) * dt) - d)/ (u - d)
+      cdef double pd = 1.0 - pu
+      cdef double disc = np.exp(-data.rate * dt)
+      cdef double dpu = disc * pu
+      cdef double dpd = disc * pd
+      cdef long numNodes = self._nsteps + 1
+
+      cdef double[:] spot_t = np.empty(numNodes, dtype=np.float64)
+      cdef double[:] call_t = np.empty(numNodes, dtype=np.float64)
 
 
         
