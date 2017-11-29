@@ -1,6 +1,8 @@
 from deacon.option import Option
 from deacon.payoff import VanillaCallPayoff, VanillaPutPayoff 
 from deacon.engine import EuropeanBinomialEngine
+from deacon.engine import AmericanBinomialEngine
+from deacon.engine import NaiveMonteCarloEngine
 from deacon.marketdata import MarketData
 from deacon.facade import OptionFacade
 
@@ -11,7 +13,10 @@ thePut = Option(1.0, VanillaPutPayoff(strike))
 
 ## Setup up the binomial pricing engine
 steps = 500
-theEngine = EuropeanBinomialEngine(steps)
+reps = 500000
+#theEngine = EuropeanBinomialEngine(steps)
+#theEngine = AmericanBinomialEngine(steps)
+theEngine = NaiveMonteCarloEngine(reps)
 
 ## Setup the market data
 spot = 41.0
