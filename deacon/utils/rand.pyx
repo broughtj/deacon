@@ -53,6 +53,6 @@ cpdef double[::1] StratifiedSample(unsigned long nreps, unsigned long seed, doub
 
     return uhat
 
-cpdef double[::1] WienerBridgePath(unsigned long nsteps, unsigned long seed, double endval):
+
 
     
