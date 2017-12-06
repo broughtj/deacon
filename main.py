@@ -11,9 +11,9 @@ strike = 40.0
 theCall = Option(1.0, VanillaCallPayoff(strike))
 thePut = Option(1.0, VanillaPutPayoff(strike))
 
-## Setup up the binomial pricing engine
+## Setup up the pricing engine
 steps = 500
-reps = 500000
+reps = 5000
 #theEngine = EuropeanBinomialEngine(steps)
 #theEngine = AmericanBinomialEngine(steps)
 theEngine = NaiveMonteCarloEngine(reps)
