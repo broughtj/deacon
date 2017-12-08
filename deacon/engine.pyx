@@ -16,8 +16,9 @@ cdef class PricingEngine:
 
 cdef class BinomialEngine(PricingEngine):
     """An interface class for binomial pricing engines."""
-    def __init__(self, nsteps):
+    def __init__(self, nsteps, nreps):
         self._nsteps = nsteps
+        self._nreps = nreps
 
     cdef double calculate(self, Option option, MarketData data):
         pass
