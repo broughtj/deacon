@@ -12,7 +12,7 @@ thePut = Option(1.0, VanillaPutPayoff(strike))
 ## Setup up the Black Scholes Control Variate pricing engine
 steps = 52
 reps = 10000
-theEngine = BlackScholesControlVariateEngine(steps,reps)
+theEngine = BlackScholesControlVariateEngine(self, steps, reps)
 
 ## Setup the market data
 spot = 41.0

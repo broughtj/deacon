@@ -89,7 +89,7 @@ cdef class MonteCarloEngine(PricingEngine):
     An interface class for Monte Carlo pricing engines.
     """
 
-    def __init__(self, nreps, nsteps):
+    def __init__(self, nsteps, nreps):
         self._nreps = nreps
         self._nsteps = nsteps
     cdef double calculate(self, Option option, MarketData data):
