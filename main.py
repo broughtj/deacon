@@ -1,6 +1,6 @@
 from deacon.option import Option
 from deacon.payoff import VanillaCallPayoff, VanillaPutPayoff 
-from deacon.engine import EuropeanBinomialEngine
+from deacon.engine import BlackScholesControlVariateEngine
 from deacon.marketdata import MarketData
 from deacon.facade import OptionFacade
 
@@ -9,9 +9,10 @@ strike = 40.0
 theCall = Option(1.0, VanillaCallPayoff(strike))
 thePut = Option(1.0, VanillaPutPayoff(strike))
 
-## Setup up the binomial pricing engine
-steps = 500
-theEngine = EuropeanBinomialEngine(steps)
+## Setup up the Black Scholes Control Variate pricing engine
+steps = 52
+reps = 10000
+theEngine = BlackScholesControlVariateEngine(steps,reps)
 
 ## Setup the market data
 spot = 41.0
@@ -25,7 +26,8 @@ opt1 = OptionFacade(theCall, theEngine, theData)
 opt2 = OptionFacade(thePut, theEngine, theData)
 
 ## Price the options
-print("The call price is: {0:0.3f}".format(opt1.price()))
-print("The put price is: {0:0.3f}".format(opt2.price()))
-
+print("The call price is: {0:0.3f}".format(opt1.price[0]()))
+print("The put price is: {0:0.3f}".format(opt2.price[0]()))
+print("The Standard Error is: {0:0.3f}".format(opt1.price[1]()))
+print("The Standard Error is: [0:0.3f]".format(opt2.price[1]()))
 

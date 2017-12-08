@@ -120,6 +120,7 @@ cdef class NaiveMonteCarloEngine(MonteCarloEngine):
             payoff_t[i] = option.payoff(spot_t[i])
         cdef double price = np.mean(payoff_t) * disc
 
+        return price
 
 cdef class BlackScholesControlVariateEngine(MonteCarloEngine):
     cdef double BSdelta(self, double St,double tau,double K,double sig,double r,double div):
@@ -163,3 +164,4 @@ cdef class BlackScholesControlVariateEngine(MonteCarloEngine):
             maxes[j] = option.payoff(c.max(St)) + beta1*cv.mean()
         cdef double callprc = maxes.mean()*c.exp(-r * option.expiry)  				  
         cdef double sterr = maxes.std()/(c.sqrt(M))
+		return (callprc,sterr)
