@@ -164,4 +164,4 @@ cdef class BlackScholesControlVariateEngine(MonteCarloEngine):
             maxes[j] = option.payoff(c.max(St)) + beta1*cv.mean()
         cdef double callprc = maxes.mean()*c.exp(-r * option.expiry)  				  
         cdef double sterr = maxes.std()/(c.sqrt(M))
-		return (callprc,sterr)
+        return (callprc,sterr)
