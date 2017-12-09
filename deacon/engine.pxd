@@ -25,7 +25,7 @@ cdef class EuropeanBinomialEngine(BinomialEngine):
 
 cdef class MonteCarloEngine(PricingEngine):
     cdef unsigned long _nreps
-    cdef unsinged long _nsteps
+    cdef unsigned long _nsteps
     cdef double calculate(self, Option option, MarketData data)
 
 
