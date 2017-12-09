@@ -162,7 +162,7 @@ cdef class BlackScholesControlVariateEngine(MonteCarloEngine):
                 Stn = St[i-1]*cexp(nudt + sigsdt * z[i])
                 cv[i] = cv[i-1] + delta*(Stn - St[i-1]* erddt)
                 St[i] = Stn
-            maxes[j] = option.payoff(np.max(St)) + beta1*cv.mean()
-        cdef double callprc = maxes.mean()*cexp(-r * option.expiry)  				  
+            maxes[j] = option.payoff(np.max(St)) + beta1*np.mean(cv)
+        cdef double callprc = np.mean(maxes)*cexp(-r * option.expiry)  				  
         cdef double sterr = maxes.std()/(csqrt(M))
-        return (callprc,sterr)
+        return callprc
