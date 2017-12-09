@@ -125,8 +125,8 @@ cdef class NaiveMonteCarloEngine(MonteCarloEngine):
 
 cdef class BlackScholesControlVariateEngine(MonteCarloEngine):
     cdef double BSdelta(self, double St,double tau,double K,double sig,double r,double div):
-        cdef double d1 = (np.log((St/K))+(r - div + (sig*sig*0.5)*(tau))) / (sig * np.sqrt(tau))
-        cdef double delta = np.exp(-div*tau) * norm.cdf(d1)
+        cdef double d1 = (np.log((St/K))+(r - div + (sig*sig*0.5)*(tau))) / (sig * csqrt(tau))
+        cdef double delta = cexp(-div*tau) * norm.cdf(d1)
         return delta
 
     cdef double calculate(self, Option option, MarketData data):
@@ -139,8 +139,8 @@ cdef class BlackScholesControlVariateEngine(MonteCarloEngine):
         cdef double sig = data.vol
         cdef double beta1 = -1
         cdef double nudt = (r - div - 0.5 *sig*sig) *dt
-        cdef double sigsdt = sig*c.sqrt(dt)
-        cdef double erddt = c.exp((r-div)*dt)
+        cdef double sigsdt = sig*csqrt(dt)
+        cdef double erddt = cexp((r-div)*dt)
         cdef double[::1] St = np.empty(self._nreps, dtype=np.float64)
         cdef double[::1] cv = np.empty(self._nreps, dtype=np.float64)
         cdef double[::1] maxes = np.empty(self._nsteps, dtype=np.float64)
@@ -159,10 +159,10 @@ cdef class BlackScholesControlVariateEngine(MonteCarloEngine):
             for i in range(1, N):
                 tau = (i-1)*dt
                 delta = self.BSdelta(St[0],tau,option.strike, sig, r, div)
-                Stn = St[i-1]*c.exp(nudt + sigsdt * z[i])
+                Stn = St[i-1]*cexp(nudt + sigsdt * z[i])
                 cv[i] = cv[i-1] + delta*(Stn - St[i-1]* erddt)
                 St[i] = Stn
             maxes[j] = option.payoff(c.max(St)) + beta1*cv.mean()
-        cdef double callprc = maxes.mean()*c.exp(-r * option.expiry)  				  
-        cdef double sterr = maxes.std()/(c.sqrt(M))
+        cdef double callprc = maxes.mean()*cexp(-r * option.expiry)  				  
+        cdef double sterr = maxes.std()/(csqrt(M))
         return (callprc,sterr)
