@@ -90,8 +90,8 @@ cdef class MonteCarloEngine(PricingEngine):
     """
 
     def __init__(self, nsteps, nreps):
-        self._nreps = nreps
         self._nsteps = nsteps
+        self._nreps = nreps
     cdef double calculate(self, Option option, MarketData data):
         pass
 
