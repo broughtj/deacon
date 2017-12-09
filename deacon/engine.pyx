@@ -156,7 +156,7 @@ cdef class BlackScholesControlVariateEngine(MonteCarloEngine):
             cv[0] = 0.0
         										
     											
-            for i in range(1, N):
+            for i in range(2, N):
                 tau = (i-1)*dt
                 delta = self.BSdelta(St[0],tau,option.strike, sig, r, div)
                 Stn = St[i-1]*cexp(nudt + sigsdt * z[i])

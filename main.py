@@ -27,6 +27,3 @@ opt2 = OptionFacade(thePut, theEngine, theData)
 
 ## Price the options
 print("The call price is: {0:0.3f}".format(opt1.price()))
-#print("The Standard Error is: {0:0.3f}".format(opt1.price[1]()))
-#print("The Standard Error is: {0:0.3f}".format(opt2.price[1]()))
-
