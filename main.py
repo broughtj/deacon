@@ -26,8 +26,8 @@ opt1 = OptionFacade(theCall, theEngine, theData)
 opt2 = OptionFacade(thePut, theEngine, theData)
 
 ## Price the options
-print("The call price is: {0:0.3f}".format(opt1.price[0]()))
-print("The put price is: {0:0.3f}".format(opt2.price[0]()))
-print("The Standard Error is: {0:0.3f}".format(opt1.price[1]()))
-print("The Standard Error is: {0:0.3f}".format(opt2.price[1]()))
+print("The call price is: {0:0.3f}".format(opt1.price()))
+print("The put price is: {0:0.3f}".format(opt2.price()))
+#print("The Standard Error is: {0:0.3f}".format(opt1.price[1]()))
+#print("The Standard Error is: {0:0.3f}".format(opt2.price[1]()))
 
