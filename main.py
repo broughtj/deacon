@@ -23,7 +23,7 @@ theData = MarketData(spot, rate, vol, div)
 
 ## Setup up the option facade
 opt1 = OptionFacade(theCall, theEngine, theData)
-opt2 = OptionFacade(thePut, theEngine, theData)
 
 ## Price the options
-print("The call price is: {0:0.3f}".format(opt1.price()))
+print("The call price is: {0:0.3f}".format(opt1.price[0]()))
+print("The standard error is: {0:0.3f}".format(opt1.price[1]()))
